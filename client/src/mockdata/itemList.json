@@ -1,0 +1,50 @@
+[
+  {
+    "itemId": 5060054134118,
+    "name": "Cloudy Apple Sparkling Water",
+    "brand": "Cawston",
+    "price": 2.0,
+    "quantity": 5,
+    "numLucky": 0
+  },
+  {
+    "itemId": 5060054134119,
+    "name": "Rhubarb Refresh Sparkling Water",
+    "brand": "Cawston",
+    "price": 2.5,
+    "quantity": 10,
+    "numLucky": 2
+  },
+  {
+    "itemId": 5060054134120,
+    "name": "Ginger & Lemon Sparkling Water",
+    "brand": "Cawston",
+    "price": 2.0,
+    "quantity": 7,
+    "numLucky": 1
+  },
+  {
+    "itemId": 5060054134121,
+    "name": "Elderflower Infused Water",
+    "brand": "Cawston",
+    "price": 2.75,
+    "quantity": 12,
+    "numLucky": 3
+  },
+  {
+    "itemId": 5060054134122,
+    "name": "Summer Berries Sparkling Water",
+    "brand": "Cawston",
+    "price": 2.0,
+    "quantity": 8,
+    "numLucky": 4
+  },
+  {
+    "itemId": 5060054134123,
+    "name": "Tart Cherry Sparkling Water",
+    "brand": "Cawston",
+    "price": 2.5,
+    "quantity": 6,
+    "numLucky": 1
+  }
+]
