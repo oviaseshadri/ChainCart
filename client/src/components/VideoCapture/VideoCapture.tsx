@@ -15,14 +15,9 @@ import "../../cvr"; // import side effects. The license, engineResourcePath, so 
 import "./VideoCapture.css";
 import { providers, Contract } from "ethers";
 import { contractABI, contractAddress } from "../../utils/constants";
-import mockData from "../../mockdata/itemList.json";
 declare var window: any;
 
 const { ethereum } = window;
-
-interface VideoCaptureState {
-  itemList: Array<Item>; // Replace 'any' with a more specific type if possible
-}
 
 const publicClient = createPublicClient({
   chain: celoAlfajores,
