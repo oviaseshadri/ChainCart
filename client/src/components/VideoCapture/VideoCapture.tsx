@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { createWalletClient, custom, getContract } from "viem";
+import ReactConfetti from "react-confetti";
 
 import { celoAlfajores } from "viem/chains";
 import { createPublicClient, http } from "viem";
@@ -15,6 +16,7 @@ import "../../cvr"; // import side effects. The license, engineResourcePath, so 
 import "./VideoCapture.css";
 import { providers, Contract } from "ethers";
 import { contractABI, contractAddress } from "../../utils/constants";
+import PopUp from "../PopUp";
 declare var window: any;
 
 const { ethereum } = window;
@@ -187,6 +189,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
       nameCell.textContent = item.name.replace(/^'|(?<=\s)'|'(?=\b)/g, "");
       nameCell.style.textAlign = "left"; // Align content to the left
       row.appendChild(nameCell);
+      row.style.borderBottom = "2px solid black";
 
       // Price column
       const priceCell = document.createElement("td");
@@ -212,6 +215,13 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
         cells[1].style.width = "25%";
         cells[2].style.width = "25%";
       }
+
+      // Select all tr elements within the table
+      const trElements = document.querySelectorAll("tr");
+      // Apply a bottom border to each th element
+      trElements.forEach(function (th) {
+        th.style.borderBottom = "2px solid black";
+      });
 
       // Append the row to the table
       table.appendChild(row);
@@ -380,6 +390,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
   render() {
     return (
       <div className="flex flex-col justify-center">
+        {/* {<ReactConfetti />} */}
         <div ref={this.uiContainer} className="div-ui-container max-h-60"></div>
         {/* Results: */}
         <br></br>
@@ -398,6 +409,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
         >
           Add Item
         </button>
+        <PopUp></PopUp>
         <div
           ref={this.cartContainer}
           className="div-cart-container flex w-full justify-center items-center text-white text-xl my-18"

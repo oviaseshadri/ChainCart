@@ -3,7 +3,7 @@ import HelloWorld from "./components/HelloWorld/HelloWorld";
 
 const App = () => (
   <div className="min-h-screen">
-    <div className="gradient-bg-welcome">
+    <div className="gradient-bg-services">
       <Navbar />
       <Welcome />
       <HelloWorld />
