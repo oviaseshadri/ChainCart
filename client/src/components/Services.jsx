@@ -27,7 +27,7 @@ const Services = () => (
           continue to improve
         </h1>
         <p className="text-center my-2 text-white font-light md:w-9/12 w-full text-base">
-          The best choice for finding your most compatible hacking mate who can compliment your skillset and improve the quality of your project
+          The best choice for the fastest shopping experience, powered by web3.
         </p>
       </div>
 
@@ -36,19 +36,19 @@ const Services = () => (
           color="bg-[#2952E3]"
           title="Security gurantee"
           icon={<BsShieldFillCheck fontSize={21} className="text-white" />}
-          subtitle="Security is guranteed. We always maintain privacy and maintain the quality of our projects"
+          subtitle="Security is guranteed. You will be anonymous!"
         />
         <ServiceCard
           color="bg-[#8945F8]"
-          title="Reliable Matches"
+          title="Faster Checkout"
           icon={<BiSearchAlt fontSize={21} className="text-white" />}
-          subtitle="We match you with trusted users based on our reputation system"
+          subtitle="We want to reduce the number of times you have to sign"
         />
         <ServiceCard
           color="bg-[#F84550]"
-          title="Fastest Team formation"
+          title="Pay cheaper gas in stables"
           icon={<RiHeart2Fill fontSize={21} className="text-white" />}
-          subtitle="You will be able to start building from the get go and not worry about forming your team"
+          subtitle="We will build on all L2s. MiniPay enbled gas in stables!"
         />
       </div>
     </div>

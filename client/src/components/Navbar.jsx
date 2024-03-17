@@ -2,7 +2,7 @@ import React from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 
-import logo from "../assets/devmatelogodarkbg.png";
+import logo from "../assets/chaincartlogotransparent.png";
 
 const NavBarItem = ({ title, classprops }) => (
   <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
@@ -18,10 +18,8 @@ const Navbar = () => {
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
         {[
-          "Register a Project",
-          "Find a DevMate",
-          "Submit a Project",
-          "Reward a DevMate",
+          "Lucky Stats",
+          "Dashboard",
         ].map((item, index) => (
           <NavBarItem key={item + index} title={item} />
         ))}
@@ -58,15 +56,15 @@ const Navbar = () => {
             </li>
             <li className="mx-4 cursor-pointer my-2 text-lg">Home</li>
             <li className="mx-4 cursor-pointer my-2 text-lg">
-              Register your Profile
+              Dashboard
             </li>
-            <li className="mx-4 cursor-pointer my-2 text-lg">Find a DevMate</li>
+            {/* <li className="mx-4 cursor-pointer my-2 text-lg">Find a DevMate</li> */}
             <li className="mx-4 cursor-pointer my-2 text-lg">
-              Submit a Project
+              Lucky Stats
             </li>
-            <li className="mx-4 cursor-pointer my-2 text-lg">
+            {/* <li className="mx-4 cursor-pointer my-2 text-lg">
               Reward a DevMate
-            </li>
+            </li> */}
           </ul>
         )}
       </div>
