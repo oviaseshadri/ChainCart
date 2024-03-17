@@ -77,6 +77,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			}
+		],
+		"name": "emptyCart",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -124,6 +137,11 @@
 				"internalType": "uint256",
 				"name": "_itemId",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "removeItemFromCart",
