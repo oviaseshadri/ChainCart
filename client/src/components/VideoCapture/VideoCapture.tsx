@@ -327,6 +327,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
         });
 
         alert(receipt);
+        console.log(receipt);
 
         return receipt;
       } else {
