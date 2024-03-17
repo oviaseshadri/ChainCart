@@ -174,11 +174,12 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
     });
     table.appendChild(headerRow);
     table.style.backgroundColor = "violet";
-    table.style.borderCollapse = "separate";
-    table.style.borderSpacing = "0";
+    // table.style.borderCollapse = "separate";
+    // table.style.borderSpacing = "0";
     table.style.width = "100%";
     table.style.borderRadius = "8px";
     table.style.overflow = "hidden"; // Ensures the rounded corners affect child elements
+    table.style.padding = "2px";
 
     // Create table rows for each item
     data.forEach((item) => {
@@ -187,26 +188,34 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
       // Name column
       const nameCell = document.createElement("td");
       nameCell.textContent = item.name.replace(/^'|(?<=\s)'|'(?=\b)/g, "");
-      nameCell.style.textAlign = "left"; // Align content to the left
+      nameCell.style.textAlign = "center"; // Align content to the left
+      nameCell.style.padding = "8px"; // Example padding
       row.appendChild(nameCell);
-      row.style.borderBottom = "2px solid black";
 
       // Price column
       const priceCell = document.createElement("td");
       priceCell.textContent = `${item.price} cUSD`;
       priceCell.style.textAlign = "left"; // Align content to the left
+      priceCell.style.padding = "8px"; // Example padding
       row.appendChild(priceCell);
 
       // Quantity column
       const quantityCell = document.createElement("td");
       quantityCell.textContent = item.quantity;
-      quantityCell.style.textAlign = "left"; // Align content to the left
+      quantityCell.style.textAlign = "center"; // Align content to the left
+      quantityCell.style.paddingLeft = "10px"; // Example padding
       row.appendChild(quantityCell);
+
+      var rows = table.getElementsByTagName("tr");
+      for (var i = 0; i < rows.length; i++) {
+        rows[i].style.padding = "8px"; // Example padding
+      }
 
       // Apply styles to all cells
       var cells = table.getElementsByTagName("th");
       for (var i = 0; i < cells.length; i++) {
         cells[i].style.padding = "8px"; // Example padding
+        cells[i].style.borderBottom = "5px solid black";
       }
 
       // Adjust column widths as per requirements
@@ -216,19 +225,12 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
         cells[2].style.width = "25%";
       }
 
-      // Select all tr elements within the table
-      const trElements = document.querySelectorAll("tr");
-      // Apply a bottom border to each th element
-      trElements.forEach(function (th) {
-        th.style.borderBottom = "2px solid black";
-      });
-
       // Append the row to the table
       table.appendChild(row);
     });
 
     // Apply style to add a gap between each column
-    table.style.borderSpacing = "1mm"; // Adjust the gap size as needed
+    // table.style.borderSpacing = "1mm"; // Adjust the gap size as needed
 
     // Clear the contents of resultsContainer before appending the table
     this.cartContainer.current!.innerHTML = "";
