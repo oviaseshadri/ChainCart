@@ -1,7 +1,9 @@
 import abi from "./ChainCartABI.json";
+import csudabi from "./cusdabi.json";
 
 export const contractAddress = "0x0B761b8c768A2301dDb48831aB95Dd4FB76c35CA";
 export const contractABI = abi;
+export const cusdABI = csudabi;
 // export const chainname = "celoAlfajores";
 
 

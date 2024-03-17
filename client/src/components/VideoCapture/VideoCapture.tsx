@@ -15,7 +15,7 @@ import { MultiFrameResultCrossFilter } from "dynamsoft-utility";
 import "../../cvr"; // import side effects. The license, engineResourcePath, so on.
 import "./VideoCapture.css";
 import { providers, Contract } from "ethers";
-import { contractABI, contractAddress } from "../../utils/constants";
+import { contractABI, contractAddress, cusdABI } from "../../utils/constants";
 import PopUp from "../PopUp";
 declare var window: any;
 
@@ -314,6 +314,21 @@ class VideoCapture extends React.Component {
         });
         const [address] = await walletClient.getAddresses();
 
+        const cusdcaddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
+
+        const tx1 = await walletClient.writeContract({
+          address: cusdcaddress,
+          abi: cusdABI,
+          functionName: "approve",
+          account: address,
+          args: [contractAddress,1000000000],
+        });
+
+        const receipt1 = await publicClient.waitForTransactionReceipt({
+          hash: tx1,
+        });
+        console.log("approval done")
+
         const tx = await walletClient.writeContract({
           address: contractAddress,
           abi: contractABI,
@@ -367,6 +382,7 @@ class VideoCapture extends React.Component {
           transport: custom(window.ethereum),
         });
         const [address] = await walletClient.getAddresses();
+
 
         const tx = await walletClient.writeContract({
           address: contractAddress,
