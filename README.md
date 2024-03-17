@@ -28,10 +28,11 @@ TEST DATA:
 
 To ensure the smooth operation of ChainCart, we are using the following test data for product scanning and inventory status checking:
 
-Barcode	Brand	Product	Price (in Pounds)	Quantity
-5060054134118	Cawston	Cloudy Apple Sparkling Water	1	100
-5065000523138	Pukka	Three Mint	3	100
-5000159530736	Fairtrade	Maltesers	1	100
+| Barcode      | Brand       | Product                   | Price (in $) | Quantity |
+|--------------|-------------|---------------------------|--------------|----------|
+| 5060054134118 | Cawston     | Cloudy Apple Sparkling Water | 1        | 100      |
+| 5065000523138 | Pukka       | Three Mint                | 3           | 100      |
+| 5000159530736 | Fairtrade   | Maltesers                 | 1           | 100      |
 
 Getting Started:
 
