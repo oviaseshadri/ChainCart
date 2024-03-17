@@ -1,8 +1,8 @@
-ChainCart
+CHAINCART
 
 ChainCart is a revolutionary shopping experience that brings the convenience of decentralized technology to your fingertips. With ChainCart, you can streamline your shopping experience and enjoy seamless transactions across multiple blockchain networks.
 
-Features
+FEATURES
 Decentralized Shopping: Shop with confidence knowing that your transactions are securely processed on various blockchain networks.
 
 Barcode Scanning: Effortlessly add items to your cart by scanning their barcodes using your smartphone camera.
@@ -11,7 +11,7 @@ Global Product Database: Access a comprehensive database of products from around
 
 Secure Payments: Finalize your purchases securely using blockchain technology, protecting your financial information from unauthorized access.
 
-Deployment Contract Addresses
+DEPLOYMENT CONTRACT ADDRESSES:
 ChainCart has been deployed on the following blockchain networks:
 
 Chiliz: 0x82486069a94db7Ca0c346D57178251939d6b1D0f
@@ -22,10 +22,10 @@ Filecoin: 0xBf4f8D24E6c8C93576d49D0aB44DCE0B6135F58f
 
 Arbitrum: 0x8178F6De1Bc93e1ceb3F481139E6864Aa4B94c4F
 
-Test Data
+TEST DATA:
 To ensure the smooth operation of ChainCart, we are using the following test data for product scanning and inventory status checking:
 
-Barcode	Brand	Product	Price (in $)	Quantity
+Barcode	Brand	Product	Price (in Pounds)	Quantity
 5060054134118	Cawston	Cloudy Apple Sparkling Water	1	100
 5065000523138	Pukka	Three Mint	3	100
 5000159530736	Fairtrade	Maltesers	1	100
