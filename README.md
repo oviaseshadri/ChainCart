@@ -16,16 +16,16 @@ DEPLOYMENT CONTRACT ADDRESSES:
 
 ChainCart has been deployed on the following blockchain networks:
 
-Chiliz Deployment Contract Address: 0xac7334E4Cc4ac95D1fe6474e31d27cA810722DeA
+Chiliz Deployment Contract Address:   0x7De3D9e136ba817cB98AB41A9420C21804321bf3  
 
 
-Celo Deployment Contract Address: 0x82486069a94db7Ca0c346D57178251939d6b1D0f
+Celo Deployment Contract Address:  0x048d0e69B89A6E6f0c40f3F271758485fB5fc54E
 
 
-Filecoin Deployment Contract Address: 0x82486069a94db7Ca0c346D57178251939d6b1D0f
+Filecoin Deployment Contract Address:  0xac7334E4Cc4ac95D1fe6474e31d27cA810722DeA
 
 
-Arbitrum Deployment Contract Address: 0xBf4f8D24E6c8C93576d49D0aB44DCE0B6135F58f
+Arbitrum Deployment Contract Address: 0x82486069a94db7Ca0c346D57178251939d6b1D0f
 
 Demo Video: https://www.loom.com/share/efd5e38c72794e31a8b8157164d36fb2?sid=180abc07-c94e-4df3-88a7-6c9a07e1bda3
 
