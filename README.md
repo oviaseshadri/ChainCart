@@ -3,6 +3,7 @@ CHAINCART
 ChainCart is a revolutionary shopping experience that brings the convenience of decentralized technology to your fingertips. With ChainCart, you can streamline your shopping experience and enjoy seamless transactions across multiple blockchain networks.
 
 FEATURES
+
 Decentralized Shopping: Shop with confidence knowing that your transactions are securely processed on various blockchain networks.
 
 Barcode Scanning: Effortlessly add items to your cart by scanning their barcodes using your smartphone camera.
