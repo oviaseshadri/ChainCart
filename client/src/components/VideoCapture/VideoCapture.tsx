@@ -52,33 +52,6 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
   }> | null = null;
   pDestroy: Promise<void> | null = null;
 
-  constructor(props: {}) {
-    super(props);
-    // Initializing state
-    this.state = {
-      itemList: [] as any, // Initialize your state here
-    };
-  }
-
-  // Method to update state, similar to 'setItemList' in functional components
-  setItemList = (newItemList: Array<Item>) => {
-    this.setState({ itemList: newItemList });
-  };
-
-  // Example usage of updating state
-  addItemToList = (item: Item) => {
-    const newItemList = this.state.itemList ?? [
-      ...this.state.itemList,
-      item || mockData[0],
-    ]; // your logic to update the item list
-    this.setItemList(newItemList);
-  };
-
-  removeItem = (index: number) => {
-    const newItemList = this.state.itemList.filter((_, i) => i !== index);
-    this.setItemList(newItemList);
-  };
-
   uiContainer: React.RefObject<HTMLDivElement> = React.createRef();
   resultsContainer: React.RefObject<HTMLDivElement> = React.createRef();
   cartContainer: React.RefObject<HTMLDivElement> = React.createRef();
@@ -170,7 +143,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
     }
 
     // Code here runs after every page load
-    const data = await this.displayCart() as [];
+    const data = (await this.displayCart()) as [];
 
     this.cartContainer.current!.textContent = "";
     console.log(data);
@@ -182,9 +155,6 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
     //     document.createElement('hr'),
     //   );
     // });
-    
-    
-
 
     // data.forEach(item => {
     //   this.cartContainer.current!.append(
@@ -195,56 +165,72 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
     // Create a new table element
     // Create a new table element
     // Create a new table element
-    const table = document.createElement('table');
-    table.className = 'neat-table'; // Optionally, you can add a class for styling
+    const table = document.createElement("table");
+    table.className = "neat-table"; // Optionally, you can add a class for styling
 
     // Create table header
-    const headerRow = document.createElement('tr');
-    ['Name', 'Price', 'Qty'].forEach(headerText => {
-        const th = document.createElement('th');
-        th.textContent = headerText;
-        headerRow.appendChild(th);
+    const headerRow = document.createElement("tr");
+    ["Name", "Price", "Qty"].forEach((headerText) => {
+      const th = document.createElement("th");
+      th.textContent = headerText;
+      headerRow.appendChild(th);
     });
     table.appendChild(headerRow);
+    table.style.backgroundColor = "violet";
+    table.style.borderCollapse = "separate";
+    table.style.borderSpacing = "0";
+    table.style.width = "100%";
+    table.style.borderRadius = "8px";
+    table.style.overflow = "hidden"; // Ensures the rounded corners affect child elements
 
     // Create table rows for each item
-    data.forEach(item => {
-        const row = document.createElement('tr');
-        
-        // Name column
-        const nameCell = document.createElement('td');
-        nameCell.textContent = item.name;
-        nameCell.style.textAlign = 'left'; // Align content to the left
-        row.appendChild(nameCell);
+    data.forEach((item) => {
+      const row = document.createElement("tr");
 
-        // Price column
-        const priceCell = document.createElement('td');
-        priceCell.textContent = `$${item.price}`;
-        priceCell.style.textAlign = 'left'; // Align content to the left
-        row.appendChild(priceCell);
+      // Name column
+      const nameCell = document.createElement("td");
+      nameCell.textContent = item.name.replace(/^'|(?<=\s)'|'(?=\b)/g, "");
+      nameCell.style.textAlign = "left"; // Align content to the left
+      row.appendChild(nameCell);
 
-        // Quantity column
-        const quantityCell = document.createElement('td');
-        quantityCell.textContent = item.quantity;
-        quantityCell.style.textAlign = 'left'; // Align content to the left
-        row.appendChild(quantityCell);
+      // Price column
+      const priceCell = document.createElement("td");
+      priceCell.textContent = `${item.price} cUSD`;
+      priceCell.style.textAlign = "left"; // Align content to the left
+      row.appendChild(priceCell);
 
-        // Append the row to the table
-        table.appendChild(row);
+      // Quantity column
+      const quantityCell = document.createElement("td");
+      quantityCell.textContent = item.quantity;
+      quantityCell.style.textAlign = "left"; // Align content to the left
+      row.appendChild(quantityCell);
+
+      // Apply styles to all cells
+      var cells = table.getElementsByTagName("th");
+      for (var i = 0; i < cells.length; i++) {
+        cells[i].style.padding = "8px"; // Example padding
+      }
+
+      // Adjust column widths as per requirements
+      if (cells.length > 2) {
+        cells[0].style.width = "50%";
+        cells[1].style.width = "25%";
+        cells[2].style.width = "25%";
+      }
+
+      // Append the row to the table
+      table.appendChild(row);
     });
 
     // Apply style to add a gap between each column
-    table.style.borderSpacing = '1mm'; // Adjust the gap size as needed
+    table.style.borderSpacing = "1mm"; // Adjust the gap size as needed
 
     // Clear the contents of resultsContainer before appending the table
-    this.cartContainer.current!.innerHTML = '';
+    this.cartContainer.current!.innerHTML = "";
 
     // Append the table to the resultsContainer
     this.cartContainer.current!.appendChild(table);
-
-    
   }
-
 
   async componentWillUnmount() {
     await (this.pDestroy = this.destroy());
@@ -303,52 +289,48 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
       console.log(error);
       alert(error);
       throw new Error("No ethereum object");
-  } 
-}
-
-checkout = async () => {
-  console.log("going to checkout now")
-  try {
-    if (window.ethereum) {
-      // const { addressTo, amount, keyword, message } = formData;
-      // const transactionsContract = createEthereumContract();
-      // // const parsedAmount = ethers.utils.parseEther(amount);
-      // const tx = await transactionsContract.addItemToCart(itemid);
-      // await tx.wait()
-      const walletClient = createWalletClient({ 
-        chain: celoAlfajores, 
-        transport: custom(window.ethereum), 
-      }) 
-      const [address] = await walletClient.getAddresses();
-
-      const tx = await walletClient.writeContract({
-        address: contractAddress,
-        abi: contractABI,
-        functionName: "acceptPayment",
-        account: address,
-        args: [address]
-      });
-
-
-      const receipt = await publicClient.waitForTransactionReceipt({
-        hash: tx,
-    });
-
-    alert(receipt);
-
-    return receipt;
-
-    } else {
-      console.error('Error adding item to cart:');
-      
     }
-  } catch (error) {
-    console.log(error);
-    alert(error);
-    throw new Error("No ethereum object");
-  }
+  };
 
-}
+  checkout = async () => {
+    console.log("going to checkout now");
+    try {
+      if (window.ethereum) {
+        // const { addressTo, amount, keyword, message } = formData;
+        // const transactionsContract = createEthereumContract();
+        // // const parsedAmount = ethers.utils.parseEther(amount);
+        // const tx = await transactionsContract.addItemToCart(itemid);
+        // await tx.wait()
+        const walletClient = createWalletClient({
+          chain: celoAlfajores,
+          transport: custom(window.ethereum),
+        });
+        const [address] = await walletClient.getAddresses();
+
+        const tx = await walletClient.writeContract({
+          address: contractAddress,
+          abi: contractABI,
+          functionName: "acceptPayment",
+          account: address,
+          args: [address],
+        });
+
+        const receipt = await publicClient.waitForTransactionReceipt({
+          hash: tx,
+        });
+
+        alert(receipt);
+
+        return receipt;
+      } else {
+        console.error("Error adding item to cart:");
+      }
+    } catch (error) {
+      console.log(error);
+      alert(error);
+      throw new Error("No ethereum object");
+    }
+  };
 
   addItem = async () => {
     const resultsText = this.resultsContainer.current
@@ -388,7 +370,6 @@ checkout = async () => {
         });
 
         alert(receipt);
-        this.addItemToList(mockData[0]);
 
         return receipt;
       } else {
@@ -403,15 +384,39 @@ checkout = async () => {
 
   render() {
     return (
-      <div>
+      <div className="flex flex-col justify-center">
         <div ref={this.uiContainer} className="div-ui-container max-h-60"></div>
         {/* Results: */}
         <br></br>
 
-        <div ref={this.resultsContainer} className="div-results-container flex w-full justify-center items-center"></div>
-        <button className="p-5 bg-violet-700 rounded-lg flex w-full justify-center items-center" onClick={this.addItem}>Add Item</button>
-        <div ref={this.cartContainer} className="div-cart-container flex w-full justify-center items-center text-white text-xl"></div>
-        <button className="p-5 bg-violet-700 rounded-lg flex w-full justify-center items-center" onClick={this.checkout}>Checkout</button>
+        {/* <div
+          ref={this.resultsContainer}
+          className="div-results-container flex w-full justify-center items-center"
+        ></div> */}
+        <button
+          className="p-5 mb-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full my-10"
+          style={{
+            marginRight: "10px",
+            backgroundColor: "#602ADA",
+          }}
+          onClick={this.addItem}
+        >
+          Add Item
+        </button>
+        <div
+          ref={this.cartContainer}
+          className="div-cart-container flex w-full justify-center items-center text-white text-xl my-18"
+        ></div>
+        <button
+          className="p-5 mb-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full my-10"
+          style={{
+            marginRight: "10px",
+            backgroundColor: "#602ADA",
+          }}
+          onClick={this.checkout}
+        >
+          Checkout
+        </button>
       </div>
     );
   }
