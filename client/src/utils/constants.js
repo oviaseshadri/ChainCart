@@ -2,6 +2,7 @@ import abi from "./ChainCartABI.json";
 
 export const contractAddress = "0x8178F6De1Bc93e1ceb3F481139E6864Aa4B94c4F";
 export const contractABI = abi;
+// export const chainname = "celoAlfajores";
 
 
 // export const contractAddress = "0xfCCF80344a668b72ac4Be23513F0E9E4a35C84fA";

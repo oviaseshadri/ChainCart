@@ -81,6 +81,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
 
   uiContainer: React.RefObject<HTMLDivElement> = React.createRef();
   resultsContainer: React.RefObject<HTMLDivElement> = React.createRef();
+  cartContainer: React.RefObject<HTMLDivElement> = React.createRef();
 
   async init(): Promise<{
     cameraView: CameraView;
@@ -169,6 +170,11 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
     }
 
     // Code here runs after every page load
+    const data = this.displayCart();
+
+    this.cartContainer.current!.textContent = "";
+    console.log(data);
+    this.cartContainer.current!.textContent = data;
   }
 
   async componentWillUnmount() {
@@ -193,6 +199,42 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
       // }
     }
     return 0;
+  };
+
+  displayCart = async () => {
+    console.log("going to display the cart");
+    try {
+      if (window.ethereum) {
+        // const { addressTo, amount, keyword, message } = formData;
+        // const transactionsContract = createEthereumContract();
+        // // const parsedAmount = ethers.utils.parseEther(amount);
+        // const tx = await transactionsContract.addItemToCart(itemid);
+        // await tx.wait()
+        const walletClient = createWalletClient({
+          chain: celoAlfajores,
+          transport: custom(window.ethereum),
+        });
+        const [address] = await walletClient.getAddresses();
+
+        const data = await publicClient.readContract({
+          address: contractAddress,
+          abi: contractABI,
+          functionName: "getUserCart",
+          args: [address],
+        });
+
+        // alert(data);
+        console.log(data);
+
+        return data;
+      } else {
+        console.error("Error getting cart details");
+      }
+    } catch (error) {
+      console.log(error);
+      alert(error);
+      throw new Error("No ethereum object");
+    }
   };
 
   addItem = async () => {
@@ -249,7 +291,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
   render() {
     return (
       <div>
-        <div ref={this.uiContainer} className="div-ui-container"></div>
+        <div ref={this.uiContainer} className="div-ui-container "></div>
         {/* Results: */}
         <br></br>
         <div
@@ -272,6 +314,20 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
             </li>
           ))}
         </ul>
+        <div
+          ref={this.resultsContainer}
+          className="div-results-container flex w-full justify-center items-center"
+        ></div>
+        <button
+          className="p-5 bg-violet-700 rounded-lg flex w-full justify-center items-center"
+          onClick={this.addItem}
+        >
+          Add Item
+        </button>
+        <div
+          ref={this.cartContainer}
+          className="div-cart-container flex w-full justify-center items-center"
+        ></div>
       </div>
     );
   }
