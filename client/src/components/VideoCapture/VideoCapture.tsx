@@ -41,7 +41,7 @@ const createEthereumContract = () => {
   return transactionsContract;
 };
 
-class VideoCapture extends React.Component<{}, VideoCaptureState> {
+class VideoCapture extends React.Component {
   pInit: Promise<{
     cameraView: CameraView;
     cameraEnhancer: CameraEnhancer;
