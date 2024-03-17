@@ -138,13 +138,81 @@ class VideoCapture extends React.Component {
     }
 
     // Code here runs after every page load
-    const data = this.displayCart();
+    const data = await this.displayCart() as [];
 
     this.cartContainer.current!.textContent = '';
     console.log(data);
-    this.cartContainer.current!.textContent = data;
+    // this.cartContainer.current!.textContent = this.generateTable(data);
+    // data.forEach(item => {
+    //   this.resultsContainer.current!.append(
+    //     `${item.name}: ${item.price} : ${item.quantity}`,
+    //     document.createElement('br'),
+    //     document.createElement('hr'),
+    //   );
+    // });
+    
+    
+
+
+    // data.forEach(item => {
+    //   this.cartContainer.current!.append(
+    //     `${item.name} ; ${item.price} : ${item.quantity}`
+    //   );
+    //   this.cartContainer.current!.append(document.createElement('br'));
+    // });
+    // Create a new table element
+    // Create a new table element
+    // Create a new table element
+    const table = document.createElement('table');
+    table.className = 'neat-table'; // Optionally, you can add a class for styling
+
+    // Create table header
+    const headerRow = document.createElement('tr');
+    ['Name', 'Price', 'Qty'].forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+
+    // Create table rows for each item
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        
+        // Name column
+        const nameCell = document.createElement('td');
+        nameCell.textContent = item.name;
+        nameCell.style.textAlign = 'left'; // Align content to the left
+        row.appendChild(nameCell);
+
+        // Price column
+        const priceCell = document.createElement('td');
+        priceCell.textContent = `$${item.price}`;
+        priceCell.style.textAlign = 'left'; // Align content to the left
+        row.appendChild(priceCell);
+
+        // Quantity column
+        const quantityCell = document.createElement('td');
+        quantityCell.textContent = item.quantity;
+        quantityCell.style.textAlign = 'left'; // Align content to the left
+        row.appendChild(quantityCell);
+
+        // Append the row to the table
+        table.appendChild(row);
+    });
+
+    // Apply style to add a gap between each column
+    table.style.borderSpacing = '1mm'; // Adjust the gap size as needed
+
+    // Clear the contents of resultsContainer before appending the table
+    this.cartContainer.current!.innerHTML = '';
+
+    // Append the table to the resultsContainer
+    this.cartContainer.current!.appendChild(table);
+
     
   }
+
 
   async componentWillUnmount() {
     await (this.pDestroy = this.destroy());
@@ -208,6 +276,49 @@ displayCart = async () => {
   }
 }
 
+checkout = async () => {
+  console.log("going to checkout now")
+  try {
+    if (window.ethereum) {
+      // const { addressTo, amount, keyword, message } = formData;
+      // const transactionsContract = createEthereumContract();
+      // // const parsedAmount = ethers.utils.parseEther(amount);
+      // const tx = await transactionsContract.addItemToCart(itemid);
+      // await tx.wait()
+      const walletClient = createWalletClient({ 
+        chain: celoAlfajores, 
+        transport: custom(window.ethereum), 
+      }) 
+      const [address] = await walletClient.getAddresses();
+
+      const tx = await walletClient.writeContract({
+        address: contractAddress,
+        abi: contractABI,
+        functionName: "acceptPayment",
+        account: address,
+        args: [address]
+      });
+
+
+      const receipt = await publicClient.waitForTransactionReceipt({
+        hash: tx,
+    });
+
+    alert(receipt);
+
+    return receipt;
+
+    } else {
+      console.error('Error adding item to cart:');
+      
+    }
+  } catch (error) {
+    console.log(error);
+    alert(error);
+    throw new Error("No ethereum object");
+  }
+
+}
 
   addItem = async () => {
     const resultsText = this.resultsContainer.current? this.resultsContainer.current.innerText : ":";
@@ -265,12 +376,14 @@ displayCart = async () => {
   render() {
     return (
       <div>
-        <div ref={this.uiContainer} className="div-ui-container "></div>
+        <div ref={this.uiContainer} className="div-ui-container max-h-60"></div>
         {/* Results: */}
         <br></br>
+
         <div ref={this.resultsContainer} className="div-results-container flex w-full justify-center items-center"></div>
         <button className="p-5 bg-violet-700 rounded-lg flex w-full justify-center items-center" onClick={this.addItem}>Add Item</button>
-        <div ref={this.cartContainer} className="div-cart-container flex w-full justify-center items-center"></div>
+        <div ref={this.cartContainer} className="div-cart-container flex w-full justify-center items-center text-white text-xl"></div>
+        <button className="p-5 bg-violet-700 rounded-lg flex w-full justify-center items-center" onClick={this.checkout}>Checkout</button>
       </div>
     );
   }
