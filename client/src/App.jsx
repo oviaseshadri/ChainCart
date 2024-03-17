@@ -1,5 +1,5 @@
 import { Navbar, Welcome, Footer, Services } from "./components";
-import HelloWorld from './components/HelloWorld/HelloWorld';
+import HelloWorld from "./components/HelloWorld/HelloWorld";
 
 const App = () => (
   <div className="min-h-screen">
@@ -9,7 +9,7 @@ const App = () => (
       <HelloWorld />
     </div>
     {/* <Services /> */}
-    {/* <Footer /> */}
+    <Footer />
   </div>
 );
 

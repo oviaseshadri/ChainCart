@@ -1,14 +1,11 @@
 import React, { useContext } from "react";
-import { createWalletClient, custom, getContract } from 'viem'
+import { createWalletClient, custom, getContract } from "viem";
 
-import { celoAlfajores } from 'viem/chains'
-import { createPublicClient, http } from 'viem'
+import { celoAlfajores } from "viem/chains";
+import { createPublicClient, http } from "viem";
 import { EnumCapturedResultItemType } from "dynamsoft-core";
 import { DecodedBarcodesResult } from "dynamsoft-barcode-reader";
-import {
-  CameraEnhancer,
-  CameraView,
-} from "dynamsoft-camera-enhancer";
+import { CameraEnhancer, CameraView } from "dynamsoft-camera-enhancer";
 import {
   CapturedResultReceiver,
   CaptureVisionRouter,
@@ -16,11 +13,16 @@ import {
 import { MultiFrameResultCrossFilter } from "dynamsoft-utility";
 import "../../cvr"; // import side effects. The license, engineResourcePath, so on.
 import "./VideoCapture.css";
-import {providers, Contract} from "ethers"
+import { providers, Contract } from "ethers";
 import { contractABI, contractAddress } from "../../utils/constants";
-declare var window: any
+import mockData from "../../mockdata/itemList.json";
+declare var window: any;
 
-const {ethereum} = window;
+const { ethereum } = window;
+
+interface VideoCaptureState {
+  itemList: Array<Item>; // Replace 'any' with a more specific type if possible
+}
 
 const publicClient = createPublicClient({
   chain: celoAlfajores,
@@ -28,24 +30,54 @@ const publicClient = createPublicClient({
 });
 
 const createEthereumContract = () => {
-
   const provider = new providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
-  signer.getAddress().then(address => console.log(address));
+  signer.getAddress().then((address) => console.log(address));
 
   console.log(contractAddress, contractABI, signer);
-  const transactionsContract = new Contract(contractAddress, contractABI, signer);
+  const transactionsContract = new Contract(
+    contractAddress,
+    contractABI,
+    signer
+  );
 
   return transactionsContract;
 };
 
-class VideoCapture extends React.Component {
+class VideoCapture extends React.Component<{}, VideoCaptureState> {
   pInit: Promise<{
     cameraView: CameraView;
     cameraEnhancer: CameraEnhancer;
     router: CaptureVisionRouter;
   }> | null = null;
   pDestroy: Promise<void> | null = null;
+
+  constructor(props: {}) {
+    super(props);
+    // Initializing state
+    this.state = {
+      itemList: [] as any, // Initialize your state here
+    };
+  }
+
+  // Method to update state, similar to 'setItemList' in functional components
+  setItemList = (newItemList: Array<Item>) => {
+    this.setState({ itemList: newItemList });
+  };
+
+  // Example usage of updating state
+  addItemToList = (item: Item) => {
+    const newItemList = this.state.itemList ?? [
+      ...this.state.itemList,
+      item || mockData[0],
+    ]; // your logic to update the item list
+    this.setItemList(newItemList);
+  };
+
+  removeItem = (index: number) => {
+    const newItemList = this.state.itemList.filter((_, i) => i !== index);
+    this.setItemList(newItemList);
+  };
 
   uiContainer: React.RefObject<HTMLDivElement> = React.createRef();
   resultsContainer: React.RefObject<HTMLDivElement> = React.createRef();
@@ -73,13 +105,13 @@ class VideoCapture extends React.Component {
       ) => {
         if (!result.barcodeResultItems.length) return;
 
-        this.resultsContainer.current!.textContent = '';
+        this.resultsContainer.current!.textContent = "";
         console.log(result);
         for (let item of result.barcodeResultItems) {
           this.resultsContainer.current!.append(
             `${item.formatString}: ${item.text}`,
-            document.createElement('br'),
-            document.createElement('hr'),
+            document.createElement("br"),
+            document.createElement("hr")
           );
         }
       };
@@ -137,7 +169,6 @@ class VideoCapture extends React.Component {
     }
 
     // Code here runs after every page load
-    
   }
 
   async componentWillUnmount() {
@@ -150,29 +181,29 @@ class VideoCapture extends React.Component {
     return false;
   }
 
-  extractitemid = (str : string) => {
+  extractitemid = (str: string) => {
     // Remove all spaces and newline characters from the string
-    const processedStr = str.replace(/\s/g, '');
+    const processedStr = str.replace(/\s/g, "");
 
-    const parts = processedStr.split(':');
-    console.log("parts: ", parts)
+    const parts = processedStr.split(":");
+    console.log("parts: ", parts);
     if (parts.length === 2) {
-        // if (!isNaN(parts[1])) {
-            return Number(parts[1]);
-        // }
+      // if (!isNaN(parts[1])) {
+      return Number(parts[1]);
+      // }
     }
     return 0;
-}
-
+  };
 
   addItem = async () => {
-    const resultsText = this.resultsContainer.current? this.resultsContainer.current.innerText : ":";
+    const resultsText = this.resultsContainer.current
+      ? this.resultsContainer.current.innerText
+      : ":";
     // uint256 resultText = 5013665116417;
-    console.log("rest text: ", resultsText)
-    this.addItemToCart(this.extractitemid(resultsText))
+    console.log("rest text: ", resultsText);
+    this.addItemToCart(this.extractitemid(resultsText));
     // this.addItemToCart(5013665116417)
-
-  }
+  };
 
   addItemToCart = async (itemid: number) => {
     // const contract = new ethers.Contract(contractAddress, contractABI, signer);
@@ -183,10 +214,10 @@ class VideoCapture extends React.Component {
         // // const parsedAmount = ethers.utils.parseEther(amount);
         // const tx = await transactionsContract.addItemToCart(itemid);
         // await tx.wait()
-        const walletClient = createWalletClient({ 
-          chain: celoAlfajores, 
-          transport: custom(window.ethereum), 
-        }) 
+        const walletClient = createWalletClient({
+          chain: celoAlfajores,
+          transport: custom(window.ethereum),
+        });
         const [address] = await walletClient.getAddresses();
 
         const tx = await walletClient.writeContract({
@@ -194,29 +225,26 @@ class VideoCapture extends React.Component {
           abi: contractABI,
           functionName: "addItemToCart",
           account: address,
-          args: [itemid]
+          args: [itemid],
         });
-
 
         const receipt = await publicClient.waitForTransactionReceipt({
           hash: tx,
-      });
+        });
 
-      alert(receipt);
+        alert(receipt);
+        this.addItemToList(mockData[0]);
 
-      return receipt;
-
+        return receipt;
       } else {
-        console.error('Error adding item to cart:');
-        
+        console.error("Error adding item to cart:");
       }
     } catch (error) {
       console.log(error);
       alert(error);
       throw new Error("No ethereum object");
     }
-
-  }
+  };
 
   render() {
     return (
@@ -224,8 +252,26 @@ class VideoCapture extends React.Component {
         <div ref={this.uiContainer} className="div-ui-container"></div>
         {/* Results: */}
         <br></br>
-        <div ref={this.resultsContainer} className="div-results-container"></div>
-        <button onClick={this.addItem}>Add Item</button>
+        <div
+          ref={this.resultsContainer}
+          className="div-results-container"
+        ></div>
+        asdfasdf
+        <button className="p-5 bg-violet-700 rounded-lg" onClick={this.addItem}>
+          Add Item
+        </button>
+        hvhjv
+        <ul>
+          {mockData.map((item, index) => (
+            <li key={index}>
+              {/* <img src={item.icon} alt={item.name} />{" "} */}
+              {/* Assuming you have icons */}
+              {item.name} - {item.brand} - ${item.price} - Quantity:{" "}
+              {item.quantity}
+              <button onClick={() => this.removeItem(index)}>Remove</button>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
