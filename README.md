@@ -27,6 +27,8 @@ Filecoin Deployment Contract Address: 0x82486069a94db7Ca0c346D57178251939d6b1D0f
 
 Arbitrum Deployment Contract Address: 0xBf4f8D24E6c8C93576d49D0aB44DCE0B6135F58f
 
+Demo Video: https://www.loom.com/share/efd5e38c72794e31a8b8157164d36fb2?sid=180abc07-c94e-4df3-88a7-6c9a07e1bda3
+
 TEST DATA:
 
 To ensure the smooth operation of ChainCart, we are using the following test data for product scanning and inventory status checking:
