@@ -1,6 +1,6 @@
 import abi from "./ChainCartABI.json";
 
-export const contractAddress = "0x11bE9fDe7d824ae4CE89E40b768EBc3216812C71";
+export const contractAddress = "0x0B761b8c768A2301dDb48831aB95Dd4FB76c35CA";
 export const contractABI = abi;
 // export const chainname = "celoAlfajores";
 
@@ -22,7 +22,7 @@ export const contractABI = abi;
 // Chiliz Deployment Contract Address: 0xac7334E4Cc4ac95D1fe6474e31d27cA810722DeA
 
 
-// Celo Deployment Contract Address: 0x11bE9fDe7d824ae4CE89E40b768EBc3216812C71
+// Celo Deployment Contract Address: 0x0B761b8c768A2301dDb48831aB95Dd4FB76c35CA
 
 
 // Filecoin Deployment Contract Address: 0x82486069a94db7Ca0c346D57178251939d6b1D0f

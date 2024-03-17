@@ -196,19 +196,20 @@ contract ChainCart {
             totalPrice -= items[itemId].price * cart[i].numLucky;
         }
         require(totalPrice > 0, "Cart is empty");
+        uint256 finalPrice = totalPrice / 10000;
 
         IERC20 token = IERC20(tokenAddress);
         uint256 allowance = token.allowance(_user, address(this));
 
-        if (allowance < totalPrice) {
+        if (allowance < finalPrice) {
             // Approve the contract to spend the required amount
-            require(token.approve(address(this), totalPrice), "Approval failed");
+            require(token.approve(address(this), finalPrice), "Approval failed");
         }
 
         // Transfer tokens from the user to the contract
-        require(token.transferFrom(_user, address(this), totalPrice), "Transfer failed");
+        require(token.transferFrom(_user, address(this), finalPrice), "Transfer failed");
         this.emptyCart(_user);
-        emit PaymentReceived(_user, totalPrice);
+        emit PaymentReceived(_user, finalPrice);
     }
 
     // Function to withdraw ERC20 tokens from the contract

@@ -326,8 +326,10 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
 
         alert(receipt);
         console.log(receipt);
+        console.log("successfully paid and checked out")
+        window.location.reload();
 
-        return receipt;
+        // return receipt;
       } else {
         console.error("Error adding item to cart:");
       }
@@ -344,8 +346,9 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
       : ":";
     // uint256 resultText = 5013665116417;
     console.log("rest text: ", resultsText);
-    this.addItemToCart(this.extractitemid(resultsText));
+    await this.addItemToCart(this.extractitemid(resultsText));
     // this.addItemToCart(5013665116417)
+    window.location.reload();
   };
 
   addItemToCart = async (itemid: number) => {
@@ -376,6 +379,8 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
         });
 
         alert(receipt);
+        console.log(receipt)
+
 
         return receipt;
       } else {
@@ -396,10 +401,10 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
         {/* Results: */}
         <br></br>
 
-        {/* <div
+        <div
           ref={this.resultsContainer}
           className="div-results-container flex w-full justify-center items-center"
-        ></div> */}
+        ></div>
         <button
           className="p-5 mb-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full my-10"
           style={{
@@ -410,7 +415,7 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
         >
           Add Item
         </button>
-        <PopUp></PopUp>
+        {/* <PopUp></PopUp> */}
         <div
           ref={this.cartContainer}
           className="div-cart-container flex w-full justify-center items-center text-white text-xl my-18"
