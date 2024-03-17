@@ -384,27 +384,35 @@ class VideoCapture extends React.Component<{}, VideoCaptureState> {
 
   render() {
     return (
-      <div>
+      <div className="flex flex-col justify-center">
         <div ref={this.uiContainer} className="div-ui-container max-h-60"></div>
         {/* Results: */}
         <br></br>
 
-        <div
+        {/* <div
           ref={this.resultsContainer}
           className="div-results-container flex w-full justify-center items-center"
-        ></div>
+        ></div> */}
         <button
-          className="p-5 bg-violet-700 rounded-lg flex w-full justify-center items-center"
+          className="p-5 mb-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full my-10"
+          style={{
+            marginRight: "10px",
+            backgroundColor: "#602ADA",
+          }}
           onClick={this.addItem}
         >
           Add Item
         </button>
         <div
           ref={this.cartContainer}
-          className="div-cart-container flex w-full justify-center items-center text-white text-xl"
+          className="div-cart-container flex w-full justify-center items-center text-white text-xl my-18"
         ></div>
         <button
-          className="p-5 bg-violet-700 rounded-lg flex w-full justify-center items-center"
+          className="p-5 mb-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full my-10"
+          style={{
+            marginRight: "10px",
+            backgroundColor: "#602ADA",
+          }}
           onClick={this.checkout}
         >
           Checkout

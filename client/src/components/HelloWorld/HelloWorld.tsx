@@ -33,26 +33,28 @@ class HelloWorld extends React.Component {
 
   render() {
     return (
-      <div className="div-hello-world">
+      <div className="div-hello-world px-9">
         <div>
-          <button className="p-5 bg-violet-700 rounded-lg"
+          <button
+            className="p-5 bg-violet-700  text-white font-bold py-2 px-4 rounded-full"
             style={{
               marginRight: "10px",
               backgroundColor: this.state.bShowVideoCapture
-                ? "rgb(255,174,55)"
+                ? "#602ADA"
                 : "white",
             }}
             onClick={this.showVideoCapture}
           >
             Scan Barcode
           </button>
-          <button className="p-5 bg-violet-700 rounded-lg"
+          <button
+            className="p-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full"
             onClick={this.stopVideoCapture}
           >
             Close Camera
           </button>
         </div>
-        <div className="container">
+        <div className="container mt-5">
           {this.state.bShowVideoCapture ? <VideoCapture></VideoCapture> : ""}
         </div>
       </div>
