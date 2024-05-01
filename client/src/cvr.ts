@@ -7,7 +7,7 @@ import 'dynamsoft-barcode-reader';
  */
 
 LicenseManager.initLicense(
-  'DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9'
+  'DLS2eyJoYW5kc2hha2VDb2RlIjoiMTAyNjc4MjE3LVRYbFhaV0pRY205cSIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMTAyNjc4MjE3Iiwic3RhbmRieVNlcnZlclVSTCI6Imh0dHBzOi8vc2Rscy5keW5hbXNvZnRvbmxpbmUuY29tIiwiY2hlY2tDb2RlIjoxNzc0NDI3MTQ4fQ=='
 );
 
 /**
