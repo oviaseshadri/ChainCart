@@ -1,17 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AiFillPlayCircle } from "react-icons/ai";
-import { SiEthereum } from "react-icons/si";
-import { BsInfoCircle } from "react-icons/bs";
+import React, { useContext } from "react";
 
 import { TransactionContext } from "../context/TransactionContext";
-import { shortenAddress } from "../utils/shortenAddress";
-import { Loader } from ".";
-import { Form } from ".";
+// import { shortenAddress } from "../utils/shortenAddress";
 import ConnectButton from "./ConnectButton";
 
-
 const Welcome = () => {
-  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
+  useContext(TransactionContext);
 
   // const [ hideConnectBtn, setHideButtonBtn] = useState(true);
 
@@ -28,7 +22,8 @@ const Welcome = () => {
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
           <h1 className="w-full text-center text-3xl sm:text-5xl text-white py-1">
-            Shopping just became <br/> a lot easier <br/> much faster <br /> and more decentralised
+            Shopping just became <br /> a lot easier <br /> much faster <br />{" "}
+            and more decentralised
           </h1>
           <p className="text-center mt-5 text-white font-light md:w-9/12 w-full text-base">
             {/* Worry about building, not about the people you build with! Form your dream team in one click. */}
@@ -47,8 +42,8 @@ const Welcome = () => {
             </button>
             </div>
           )} */}
-        
-        {/* {currentAccount && ( 
+
+          {/* {currentAccount && (
         <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
         <div className="flex justify-between flex-col w-full h-full">
           <div className="flex justify-between items-start">
@@ -67,8 +62,7 @@ const Welcome = () => {
       </div>
       )} */}
 
-        <ConnectButton />
-
+          <ConnectButton />
         </div>
         {/* <Form /> */}
       </div>
