@@ -1,65 +1,58 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "../../cvr"; // import side effects. The license, engineResourcePath, so on.
 import VideoCapture from "../VideoCapture/VideoCapture";
 import ImageCapture from "../ImageCapture/ImageCapture";
 import "./HelloWorld.css";
+import { TransactionContext } from "../../context/TransactionContext";
 
-class HelloWorld extends React.Component {
-  state = {
-    bShowVideoCapture: true,
-    bShowImageCapture: false,
+const HelloWorld = () => {
+  const [bShowVideoCapture, setBShowVideoCapture] = useState(true);
+  const [bShowImageCapture, setBShowImageCapture] = useState(false);
+
+  const { currentAccount } = useContext(TransactionContext);
+
+  const showVideoCapture = () => {
+    setBShowVideoCapture(true);
+    setBShowImageCapture(false);
   };
 
-  showVideoCapture = () => {
-    this.setState({
-      bShowVideoCapture: true,
-      bShowImageCapture: false,
-    });
+  const stopVideoCapture = () => {
+    setBShowVideoCapture(false);
+    setBShowImageCapture(false);
   };
 
-  stopVideoCapture = () => {
-    this.setState({
-      bShowVideoCapture: false,
-      bShowImageCapture: false,
-    });
-  };
-
-  // showImageCapture = () => {
-  //   this.setState({
-  //     bShowVideoCapture: false,
-  //     bShowImageCapture: true,
-  //   });
+  // const showImageCapture = () => {
+  //   setBShowVideoCapture(false);
+  //   setBShowImageCapture(true);
   // };
 
-  render() {
-    return (
+  return (
+    currentAccount && (
       <div className="div-hello-world px-9">
         <div>
           <button
-            className="p-5 bg-violet-700  text-white font-bold py-2 px-4 rounded-full"
+            className="p-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full"
             style={{
               marginRight: "10px",
-              backgroundColor: this.state.bShowVideoCapture
-                ? "#602ADA"
-                : "white",
+              backgroundColor: bShowVideoCapture ? "#602ADA" : "white",
             }}
-            onClick={this.showVideoCapture}
+            onClick={showVideoCapture}
           >
             Scan Barcode
           </button>
           <button
             className="p-5 bg-violet-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={this.stopVideoCapture}
+            onClick={stopVideoCapture}
           >
             Close Camera
           </button>
         </div>
         <div className="container mt-5">
-          {this.state.bShowVideoCapture ? <VideoCapture></VideoCapture> : ""}
+          {bShowVideoCapture ? <VideoCapture /> : ""}
         </div>
       </div>
-    );
-  }
-}
+    )
+  );
+};
 
 export default HelloWorld;

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
-import { TransactionContext } from "../context/TransactionContext";
 import { AiFillPlayCircle } from "react-icons/ai";
+import { TransactionContext } from "../context/TransactionContext";
 
 export default function ConnectButton() {
   const { connectWallet, currentAccount } = useContext(TransactionContext);
@@ -15,15 +15,16 @@ export default function ConnectButton() {
     }
   }, []);
 
-  if (hideConnectBtn)
+  if (hideConnectBtn) {
     return (
       <span className="w-full flex flex-row justify-center items-center text-white">
         {/* {currentAccount} */}
         You can shop!
       </span>
     );
+  }
 
-  if (!hideConnectBtn)
+  if (!hideConnectBtn) {
     return (
       <div className="w-full flex flex-row justify-center items-center">
         <button
@@ -39,8 +40,9 @@ export default function ConnectButton() {
         </button>
       </div>
     );
+  }
 
-  if (hideConnectBtn || currentAccount)
+  if (hideConnectBtn || currentAccount) {
     return (
       <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
         <div className="flex justify-between flex-col w-full h-full">
@@ -59,4 +61,5 @@ export default function ConnectButton() {
         </div>
       </div>
     );
+  }
 }
